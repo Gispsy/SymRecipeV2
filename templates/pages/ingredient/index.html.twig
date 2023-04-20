@@ -8,6 +8,17 @@
 		{% if not ingredients.items is same as([]) %}
 			<h1>Mes ingredients</h1>
 
+			<a href="{{ path('ingredient.new') }}" class="btn btn-primary">
+				Créer un ingredient
+			</a>
+
+			    {# read and display just one flash message type #}
+			{% for message in app.flashes('sucess') %}
+				<div class="alert alert-sucess mt-4">
+					{{ message }}
+				</div>
+			{% endfor %}
+
 			<div class="count mt-4">
 				<h4>
 					Il y a
@@ -23,6 +34,8 @@
 						<th scope="col">Nom</th>
 						<th scope="col">Prix</th>
 						<th scope="col">Date de création</th>
+						<th scope="col">Edition</th>
+						<th scope="col">Supression</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,6 +45,11 @@
 							<td>{{ ingredient.name }}</td>
 							<td>{{ ingredient.price }}</td>
 							<td>{{ ingredient.createdAt|date("d/m/Y") }}</td>
+							<td>
+								<a href="{{ path("ingredient.edit", { id: ingredient.id}) }}" class="btn btn-info">Modifier</a>
+							</td>
+							<td>
+							<a href="{{ path("ingredient.delete", { id: ingredient.id}) }}" class="btn btn-warning">Supprimer</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>

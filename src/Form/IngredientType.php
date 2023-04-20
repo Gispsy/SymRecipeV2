@@ -34,7 +34,6 @@ class IngredientType extends AbstractType
                     new Assert\Length(['min' => 2, 'max' => 50]),
                     new Assert\NotBlank()
                 ]
-
             ])
             ->add('price', MoneyType::class, [
                 'attr' => [
@@ -54,7 +53,7 @@ class IngredientType extends AbstractType
                     'class' => 'btn btn-primary mt-4'
                 ],
                 'label' => 'Créer mon ingrédient'
-                ]);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
