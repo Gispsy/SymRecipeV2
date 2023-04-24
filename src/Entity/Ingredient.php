@@ -81,4 +81,9 @@ class Ingredient
 
         return $this;
     }
+
+    public function __toString()        //retunr le nom en string
+    {
+        return $this->name;
+    }
 }

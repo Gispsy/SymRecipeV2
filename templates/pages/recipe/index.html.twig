@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symrecipe - Mes recettes
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		{% if not recipes.items is same as([]) %}
+			<h1>Mes recettes</h1>
+
+			<div class="count mt-4">
+				<h4>
+					Il y a
+					{{ recipes.getTotalItemCount }}
+					recettes au total
+				</h4>
+			</div>
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Numéro</th>
+						<th scope="col">Nom</th>
+						<th scope="col">Prix</th>
+                        <th scope="col">Difficulté</th>
+						<th scope="col">Date de création</th>
+						<th scope="col">Edition</th>
+						<th scope="col">Supression</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for recipe in recipes %}
+						<tr class="table-primary">
+							<th scope="row">{{ recipe.id }}</th>
+							<td>{{ recipe.name }}</td>
+							<td>
+							{% if recipe.price is null %}
+								Non renseigné 
+							{% else %} 
+								{{ recipe.price }} 
+							{% endif %}
+							</td>
+                            <td>
+							{% if recipe.difficulty is null %}
+								Non renseigné 
+							{% else %} 
+								{{ recipe.difficulty }} 
+							{% endif %}
+							</td>
+							<td>{{ recipe.createAt|date("d/m/Y") }}</td>
+							<td>
+								Todo
+							</td>
+							<td>
+							    Todo
+						    </tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{# display navigation #}
+			<div class="navigation d-flex justify-content-center mt-4">
+				{{ knp_pagination_render(recipes) }}
+			</div>
+		{% else %}
+			<h4>Il n'y a pas de recette</h4>
+		{% endif %}
+	</div>
+{% endblock %}
+
