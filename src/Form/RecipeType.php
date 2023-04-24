@@ -84,7 +84,7 @@ class RecipeType extends AbstractType
                     new Assert\LessThan(1441)
                 ]
             ])
-            ->add('descritption', TextareaType:: class,[
+            ->add('description', TextareaType:: class,[
                 'attr' =>[
                     'class' => 'form-control',
                 ],
@@ -128,13 +128,13 @@ class RecipeType extends AbstractType
                     return $r->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC');
                 },
-                'label' => 'Les ingrédients ',
+                'label' => 'Les ingrédients',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
                 'choice_label' => 'name',
-                'multiple' =>'true',
-                'expanded' => 'true'
+                'multiple' => true,
+                'expanded' => true
             ])
             ->add('submit', SubmitType::class, [
                 'attr' =>[

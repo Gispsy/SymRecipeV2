@@ -43,7 +43,7 @@ class Recipe
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank()]
-    private ?string $descritption = null;
+    private ?string $description = null;
 
     #[ORM\Column(nullable: true)]
     #[Assert\Positive()]
@@ -130,14 +130,14 @@ class Recipe
         return $this;
     }
 
-    public function getDescritption(): ?string
+    public function getDescription(): ?string
     {
-        return $this->descritption;
+        return $this->description;
     }
 
-    public function setDescritption(string $descritption): self
+    public function setDescription(string $description): self
     {
-        $this->descritption = $descritption;
+        $this->description = $description;
 
         return $this;
     }
