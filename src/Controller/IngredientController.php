@@ -79,7 +79,17 @@ class IngredientController extends AbstractController
         ]);
     }
 
+    
     //Debut edit //
+    /**
+     * Function to edit Ingredient
+     *
+     * @param Ingredient $ingredient
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+
     #[Route('/ingredient/edition/{id}', 'ingredient.edit', methods: ['GET', 'POST'])]
     public function edit(Ingredient $ingredient,
                             Request $request,
@@ -108,7 +118,16 @@ class IngredientController extends AbstractController
         ]);
     }
 
+    
     #[Route('/ingredient/suppresion/{id}', 'ingredient.delete', methods: ['GET'])]
+    
+    /**
+     * Function to supp one recette
+     *
+     * @param EntityManagerInterface $manager
+     * @param Ingredient $ingredient
+     * @return Response
+     */
     public function delete(EntityManagerInterface $manager, Ingredient $ingredient) : Response
     {
         if (!$ingredient){

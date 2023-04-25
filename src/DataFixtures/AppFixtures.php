@@ -26,7 +26,7 @@ class AppFixtures extends Fixture
     {
         //Ingredients
         $ingredients = [];
-        for ($i = 0; $i <= 50; $i++) { 
+        for ($i = 0; $i <= 49; $i++) { 
             $ingredient = new Ingredient();
             $ingredient 
                 ->setName($this->faker->word())
@@ -37,14 +37,14 @@ class AppFixtures extends Fixture
         }
 
         //Recipes
-        for ($j = 0; $j <=50 ; $j++) { 
+        for ($j = 0; $j <=24 ; $j++) { 
             $recipe = new Recipe();
             $recipe 
                 ->setName($this->faker->word())
                 ->setTime(mt_rand(0, 1) == 1 ? mt_rand(1, 1440) : null)
                 ->setNbPeople(mt_rand(0, 1) == 1 ? mt_rand(1, 50) : null)
                 ->setDifficulty(mt_rand(0, 1) == 1 ? mt_rand(1, 5) : null)
-                ->setDescritption($this->faker->text(300))
+                ->setDescription($this->faker->text(300))
                 ->setPrice(mt_rand(0, 1) == 1 ? mt_rand(1, 1000) : null)
                 ->setIsFavorite(mt_rand(0, 1) == 1 ? true : false);
 

@@ -8,6 +8,17 @@
 		{% if not recipes.items is same as([]) %}
 			<h1>Mes recettes</h1>
 
+			<a href="{{ path('recipe.new') }}" class="btn btn-primary">
+				Créer une recette
+			</a>
+
+			{# read and display just one flash message type #}
+			{% for message in app.flashes('sucess') %}
+				<div class="alert alert-sucess mt-4">
+					{{ message }}
+				</div>
+			{% endfor %}
+
 			<div class="count mt-4">
 				<h4>
 					Il y a
@@ -49,11 +60,11 @@
 							</td>
 							<td>{{ recipe.createAt|date("d/m/Y") }}</td>
 							<td>
-								Todo
+								<a href="{{ path("recipe.edit", { id: recipe.id}) }}" class="btn btn-info">Modifier</a>
 							</td>
 							<td>
-							    Todo
-						    </tr>
+							<a href="{{ path("recipe.delete", { id: recipe.id}) }}" class="btn btn-warning">Supprimer</a>
+							</td>
 					{% endfor %}
 				</tbody>
 			</table>
