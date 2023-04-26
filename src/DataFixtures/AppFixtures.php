@@ -55,7 +55,7 @@ class AppFixtures extends Fixture
         }
 
             //User
-        for ($u = 0; $u < 10; $u++) { 
+        for ($u = 0; $u < 9; $u++) { 
             $user = new User();
             $user->setFullName($this->faker->word())
                 ->setPseudo(mt_rand(0,1) === 1 ? $this->faker->firstName(): null)

@@ -16,6 +16,12 @@ Symrecipe - Connexion
         {% endif %}
         <h1 class='mt-4'>Formulaire de connexion </h1>
 
+            {% for message in app.flashes('sucess') %}
+		    	<div class="alert alert-sucess mt-4">
+			{{ message }}
+			    </div>
+			{% endfor %}
+
         <form action ="{{ path('security.login') }}" method="post">
 
             <div class="form-group">
