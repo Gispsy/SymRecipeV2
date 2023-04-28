@@ -3,14 +3,13 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
 use Symfony\Component\Validator\Constraints as Assert;
-use Webmozart\Assert\Assert as AssertAssert;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
-class UserPasswordType extends AbstractType
+class EditUserPasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -57,7 +56,8 @@ class UserPasswordType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'attr' =>[
                     'class' => 'btn btn-primary mt-4'
-                ]
+                ],
+                "label" => "Changer mot de passe"
             ]);
 
     }
