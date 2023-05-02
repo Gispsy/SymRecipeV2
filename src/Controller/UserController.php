@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Form\UserPasswordType;
 
 use App\Form\EditUserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -68,7 +67,9 @@ class UserController extends AbstractController
         }
 
         #[Route('/utilisateur/edition-mot-de-passe/{id}', 'user.edit.password', methods: ['GET', 'POST'])]
-        public function editPassword(User $user, Request $request, UserPasswordHasherInterface $hasher):Response
+        public function editPassword(User $user, Request $request,
+                                        UserPasswordHasherInterface $hasher,
+                                        EntityManagerInterface $manager):Response
         {
             $form = $this->createForm(EditUserPasswordType::class);
 
@@ -76,14 +77,20 @@ class UserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 if($hasher->isPasswordValid($user, $form->getData()['plainPassword']))
                 {
-                    $user->setPlainPassword(
-                        $form->getData()['plainPassword']
+                    $user->setPassword(
+                        $hasher->hashPassword(
+                            $user,
+                            $form->getData()['newPassword']
+                        )
                     );
 
                     $this->addFlash(
                         'sucess',
                         "Le mot de passe a été modifié."
                     );
+
+                    $manager->persist($user);
+                    $manager->flush();
 
                     return $this->redirectToRoute('recipe.index');
                 }else{
