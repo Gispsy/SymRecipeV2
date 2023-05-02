@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 
 use App\Form\EditUserPasswordType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,22 +67,40 @@ class UserController extends AbstractController
             ]);
         }
 
+        /**
+         * Function to edit mdp
+         *
+         * @param User $user
+         * @param Request $request
+         * @param UserPasswordHasherInterface $hasher
+         * @param EntityManagerInterface $manager
+         * @return Response
+         */
         #[Route('/utilisateur/edition-mot-de-passe/{id}', 'user.edit.password', methods: ['GET', 'POST'])]
-        public function editPassword(User $user, Request $request,
+        public function editPassword(User $user,
+                                        Request $request,
                                         UserPasswordHasherInterface $hasher,
                                         EntityManagerInterface $manager):Response
         {
+            if(!$this->getUser()) {
+                return $this->redirectToRoute('security.login');
+            }
+    
+            if($this->getUser() !== $user) {
+                return $this->redirectToRoute('recipe.index');
+            }
+
             $form = $this->createForm(EditUserPasswordType::class);
 
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 if($hasher->isPasswordValid($user, $form->getData()['plainPassword']))
                 {
-                    $user->setPassword(
-                        $hasher->hashPassword(
-                            $user,
+                    $user->setUpdatedAt(new \DateTimeImmutable());
+                    $user->setPlainPassword(
+
                             $form->getData()['newPassword']
-                        )
+
                     );
 
                     $this->addFlash(
