@@ -50,7 +50,7 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/recette/publique', 'recipe.index.publique', methods:['GET'])]
+    #[Route('/recette/commutaute', 'recipe.community', methods:['GET'])]
     public function indexPublic(PaginatorInterface $paginator,
                                     RecipeRepository $repository,
                                     Request $request
@@ -62,7 +62,7 @@ class RecipeController extends AbstractController
             10
         );
 
-        return $this->render('pages/recipe/index_public.html.twig', [
+        return $this->render('pages/recipe/community.html.twig', [
             'recipes' => $recipes
         ]);
     }

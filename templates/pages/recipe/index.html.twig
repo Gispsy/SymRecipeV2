@@ -5,6 +5,14 @@
 
 {% block body %}
 	<div class="container mt-4">
+
+		{# read and display just one flash message type #}
+		{% for message in app.flashes('sucess') %}
+			<div class="alert alert-sucess mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
 		{% if not recipes.items is same as([]) %}
 			<h1>Mes recettes</h1>
 
@@ -12,18 +20,11 @@
 				Créer une recette
 			</a>
 
-			{# read and display just one flash message type #}
-			{% for message in app.flashes('sucess') %}
-				<div class="alert alert-sucess mt-4">
-					{{ message }}
-				</div>
-			{% endfor %}
-
 			<div class="count mt-4">
 				<h4>
 					Il y a
 					{{ recipes.getTotalItemCount }}
-					recettes au total
+					recette(s) au total
 				</h4>
 			</div>
 
@@ -48,7 +49,7 @@
 							{% if recipe.price is null %}
 								Non renseigné 
 							{% else %} 
-								{{ recipe.price }} 
+								{{ recipe.price|number_format(2, '.',',') }} €
 							{% endif %}
 							</td>
                             <td>
@@ -74,6 +75,10 @@
 			</div>
 		{% else %}
 			<h4>Il n'y a pas de recette</h4>
+
+			<a href="{{ path('recipe.new') }}" class="btn btn-primary">
+				Créer une recette
+			</a>
 		{% endif %}
 	</div>
 {% endblock %}

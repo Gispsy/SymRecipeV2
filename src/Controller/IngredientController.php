@@ -54,7 +54,7 @@ class IngredientController extends AbstractController
      */
         //Debut new //
     #[IsGranted('ROLE_USER')]
-    #[Route('/ingredient/nouveau', 'ingredient.new', methods: ['GET', 'POST'])]
+    #[Route('/ingredient/creation', 'ingredient.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $manager
@@ -124,9 +124,6 @@ class IngredientController extends AbstractController
         ]);
     }
 
-    
-    #[Route('/ingredient/suppresion/{id}', 'ingredient.delete', methods: ['GET'])]
-    
     /**
      * Function to supp one recette
      *
@@ -134,6 +131,8 @@ class IngredientController extends AbstractController
      * @param Ingredient $ingredient
      * @return Response
      */
+    #[Security("is_granted('ROLE_USER') and user === ingredient.getUser()")]
+    #[Route('/ingredient/suppresion/{id}', 'ingredient.delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, Ingredient $ingredient) : Response
     {
         if (!$ingredient){
